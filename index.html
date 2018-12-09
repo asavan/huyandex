@@ -9,5 +9,66 @@
 <h1>Huyandex</h1>
 <h2>Истории</h2>
 </center>
+ <style>
+  .btn-nd-primary {
+    z-index: 1;
+    border: 1px solid transparent;
+    background: #1a8cff;
+    color: #fff;
+    background-clip: padding-box;
+}
+ </style>
+ <button id="paybutton" class="btn-nd-primary">Оплатить</button>
+ <h3>Доступ к контенту ограничен. Произведите оплату</h3>
+<script>
+    (function () {
+        function onBuyClicked() {
+            if (!window.PaymentRequest) {
+                // PaymentRequest API is not available. Forwarding to
+                // legacy form based experience.
+                location.href = '/checkout';
+                return;
+            }
+            // Supported payment methods
+            var supportedInstruments = [{
+                supportedMethods: ['basic-card'],
+                data: {
+                    supportedNetworks: [
+                        'visa', 'mastercard', 'amex', 'discover',
+                        'diners', 'jcb', 'unionpay'
+                    ]
+                }
+            }];
+            // Checkout details
+            var details = {
+                displayItems: [{
+                    label: 'Original donation amount',
+                    amount: { currency: 'RUB', value: '120.00' }
+                }, {
+                    label: 'Friends and family discount',
+                    amount: { currency: 'RUB', value: '-50.00' }
+                }],
+                total: {
+                    label: 'Total due',
+                    amount: { currency: 'RUB', value : '70.00' }
+                }
+            };
+            // 1. Create a `PaymentRequest` instance
+            var request = new PaymentRequest(supportedInstruments, details);
+            // 2. Show the native UI with `.show()`
+            request.show()
+            // 3. Process the payment
+                .then(result => {
+                    // POST the payment information to the server
+                    console.log(result);
+                    return result.complete('success');
+                }).catch(() => {
+                return result.complete('fail');
+            });
+        }
+        document.querySelector('#paybutton').addEventListener('click', onBuyClicked);
+    })();
+</script>
+
 </body>
 </html>

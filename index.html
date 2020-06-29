@@ -11,18 +11,47 @@
 <h1>Huyandex</h1>
 <h2>Истории</h2>
 </center>
- <style>
-  .btn-nd-primary {
-    border: 1px solid transparent;
-    background: #1a8cff;
-    color: #fff;
-    padding: 6px 9px;
-    font: 700 14px/18px Arial,sans-serif;
-    cursor: pointer;
-  }
+<style>
+.btn-nd-primary {
+	border: 1px solid transparent;
+	background: #1a8cff;
+	color: #fff;
+	padding: 6px 9px;
+	margin: 20px;
+	font: 700 14px/18px Arial,sans-serif;
+	cursor: pointer;
+}
+  
+.app {
+	  display: grid;
+	  grid-column-gap: 15px;
+	  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.card {
+	height: 600px;
+}
+	
+img {   
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+.payment {
+	display: flex;
+}
+
  </style>
+ <div class="app">
+	<div class="card"><img src="eda.jpg"></div>
+	<div class="card"><img src="phone.jpg"></div>
+	<div class="card"><img src="taxi.jpg"></div>
+</div>
+<div class="payment">
  <button id="paybutton" class="btn-nd-primary">Оплатить</button>
  <h3>Доступ к контенту ограничен. Произведите оплату</h3>
+</div>
 <script>
     (function () {
         function onBuyClicked() {
